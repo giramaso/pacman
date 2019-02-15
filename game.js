@@ -11,7 +11,7 @@ var NONE = 4,
     DYING = 10,
     Pacman = {};
 
-Pacman.FPS = 30;
+Pacman.FPS = 35;
 
 Pacman.Ghost = function (game, map, colour) {
 
@@ -89,6 +89,7 @@ Pacman.Ghost = function (game, map, colour) {
     function eat() { 
         eatable = null;
         eaten = game.getTick();
+        
     };
 
     function pointToCoord(x) {
@@ -122,7 +123,7 @@ Pacman.Ghost = function (game, map, colour) {
                 return "#0000BB";
             }
         } else if(eaten) { 
-            return "#222";
+            return "transparent";
         } 
         return colour;
     };
@@ -156,7 +157,7 @@ Pacman.Ghost = function (game, map, colour) {
         ctx.quadraticCurveTo(left, top, left + (s/2),  top);
         ctx.quadraticCurveTo(left + s, top, left+s,  base);
         
-        // Wavy things at the bottom
+        // ghost's dress
         ctx.quadraticCurveTo(tl-(inc*1), base+high, tl - (inc * 2),  base);
         ctx.quadraticCurveTo(tl-(inc*3), base+low, tl - (inc * 4),  base);
         ctx.quadraticCurveTo(tl-(inc*5), base+high, tl - (inc * 6),  base);
@@ -278,6 +279,7 @@ Pacman.User = function (game, map) {
 
     function addScore(nScore) { 
         score += nScore;
+        
         if (score >= 10000 && score - nScore < 10000) { 
             lives += 1;
         }
@@ -343,6 +345,7 @@ Pacman.User = function (game, map) {
     };
     
     function nextSquare(x, dir) {
+        
         var rem = x % 10;
         if (rem === 0) { 
             return x; 
@@ -417,15 +420,17 @@ Pacman.User = function (game, map) {
         
         if ((isMidSquare(position.y) || isMidSquare(position.x)) &&
             block === Pacman.BISCUIT || block === Pacman.PILL) {
-            
-            map.setBlock(nextWhole, Pacman.EMPTY);           
+            map.setBlock(nextWhole, Pacman.EMPTY);    
+                   
             addScore((block === Pacman.BISCUIT) ? 10 : 50);
+            ;
             eaten += 1;
+
             
             if (eaten === 182) {
                 game.completedLevel();
             }
-            
+
             if (block === Pacman.PILL) { 
                 game.eatenPill();
             }
@@ -600,7 +605,7 @@ Pacman.Map = function (size) {
 		            ctx.fillRect((j * blockSize), (i * blockSize), 
                                  blockSize, blockSize);
 
-                    ctx.fillStyle = "#FFF";
+                    ctx.fillStyle = "#7ADD8A";
                     ctx.arc((j * blockSize) + blockSize / 2,
                             (i * blockSize) + blockSize / 2,
                             Math.abs(5 - (pillSize/3)), 
@@ -647,7 +652,7 @@ Pacman.Map = function (size) {
                          blockSize, blockSize);
 
             if (layout === Pacman.BISCUIT) {
-                ctx.fillStyle = "#FFF";
+                ctx.fillStyle = "#FFEA4F";
 		        ctx.fillRect((x * blockSize) + (blockSize / 2.5), 
                              (y * blockSize) + (blockSize / 2.5), 
                              blockSize / 6, blockSize / 6);
@@ -1028,7 +1033,7 @@ var PACMAN = (function () {
         map   = new Pacman.Map(blockSize);
         user  = new Pacman.User({ 
             "completedLevel" : completedLevel, 
-            "eatenPill"      : eatenPill 
+            "eatenPill" : eatenPill
         }, map);
 
         for (i = 0, len = ghostSpecs.length; i < len; i += 1) {
@@ -1046,7 +1051,7 @@ var PACMAN = (function () {
             ["die", root + "audio/die." + extension],
             ["eatghost", root + "audio/eatghost." + extension],
             ["eatpill", root + "audio/eatpill." + extension],
-            ["eating", root + "audio/eating.short." + extension],
+            ["eating", root + "audio/eating." + extension],
             ["eating2", root + "audio/eating.short." + extension]
         ];
 
