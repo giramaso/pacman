@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pacman</title>
+    <link rel="stylesheet" href="./styles.scss">
+
+
+</head>
+<body>
+
+  <h1>Pacman proyect</h1>
+
+  <div id="pacman"></div>
+
+  <script src="game.js"></script>
+  <script src="modernizr-2.8.3.js"></script>
+
+  <script>
+    var el = document.getElementById("pacman");
+    if (Modernizr.canvas && Modernizr.localstorage && 
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else { 
+      el.innerHTML = "make you a favor, get a real browser";
+    }
+  </script>
+</body>
+</html>
