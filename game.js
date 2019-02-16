@@ -11,7 +11,7 @@ var NONE = 4,
     DYING = 10,
     Pacman = {};
 
-Pacman.FPS = 35;
+Pacman.FPS = 35
 
 Pacman.Ghost = function (game, map, colour) {
 
@@ -430,8 +430,12 @@ Pacman.User = function (game, map) {
             if (eaten === 182) {
                 game.completedLevel();
             }
-
+            if (block === Pacman.BISCUIT) { 
+                console.log("shoudplay another sound")
+                game.eatenBISCUIT();
+            }
             if (block === Pacman.PILL) { 
+                console.log("shoudplay sound")
                 game.eatenPill();
             }
         }   
@@ -991,6 +995,9 @@ var PACMAN = (function () {
 
         drawFooter();
     }
+    function eatenBISCUIT() {
+        audio.play("eating");
+    }
 
     function eatenPill() {
         audio.play("eatpill");
@@ -1033,7 +1040,8 @@ var PACMAN = (function () {
         map   = new Pacman.Map(blockSize);
         user  = new Pacman.User({ 
             "completedLevel" : completedLevel, 
-            "eatenPill" : eatenPill
+            "eatenPill" : eatenPill,
+            "eatenBISCUIT": eatenBISCUIT
         }, map);
 
         for (i = 0, len = ghostSpecs.length; i < len; i += 1) {
