@@ -23,7 +23,7 @@ Pacman.Ghost = function (game, map, colour) {
     
     function getNewCoord(dir, current) { 
         
-        var speed  = isVunerable() ? 1 : isHidden() ? 4 : 2,
+        var speed  = isVunerable() ? 2 : isHidden() ? 2 : 1,
             xSpeed = (dir === LEFT && -speed || dir === RIGHT && speed || 0),
             ySpeed = (dir === DOWN && speed || dir === UP && -speed || 0);
     
@@ -89,7 +89,8 @@ Pacman.Ghost = function (game, map, colour) {
     function eat() { 
         eatable = null;
         eaten = game.getTick();
-        
+        position = {"x": 90, "y": 80};
+
     };
 
     function pointToCoord(x) {
@@ -138,7 +139,7 @@ Pacman.Ghost = function (game, map, colour) {
             eatable = null;
         }
         
-        if (eaten && secondsAgo(eaten) > 3) { 
+        if (eaten && secondsAgo(eaten) > 1) { 
             eaten = null;
         }
         
